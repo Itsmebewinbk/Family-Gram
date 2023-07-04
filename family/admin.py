@@ -1,7 +1,7 @@
 from django.contrib import admin
-from family.models import Family, Node
+from family.models import Node
 
-admin.site.register(Family)
+
 
 admin.site.register(Node)
 

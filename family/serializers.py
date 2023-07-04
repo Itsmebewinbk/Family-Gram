@@ -1,12 +1,12 @@
 from rest_framework import serializers
 
-from family.models import Family, Node
+from family.models import Node
 
 
 class NodeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Node
-        fields = "__all__"
+        fields = ("id", "name", "parent", "spouse")
 
     def to_representation(self, instance):
         data = super().to_representation(instance)
@@ -16,19 +16,9 @@ class NodeSerializer(serializers.ModelSerializer):
                 "id": instance.spouse.id,
                 "name": instance.spouse.name,
             }
-        data["children"] = NodeSerializer(instance.children.all(), many=True).data
+        data["children"] = NodeSerializer(
+            instance.parent.all(), many=True
+        ).data
         return data
 
 
-class FamilySerializer(serializers.ModelSerializer):
-   
-    class Meta:
-        model = Family
-        fields = ("id", "name",)
-
-    def to_representation(self, instance):
-        data = super().to_representation(instance)
-    
-        data["nodes"] = NodeSerializer(instance.members, many=True).data
-
-        return data

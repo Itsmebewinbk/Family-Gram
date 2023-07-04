@@ -3,18 +3,9 @@ from rest_framework.generics import (
     ListCreateAPIView,
     RetrieveUpdateDestroyAPIView,
 )
-from family.serializers import FamilySerializer, NodeSerializer
-from family.models import Family, Node
+from family.serializers import NodeSerializer
+from family.models import Node
 
-
-class FamilyCreateView(CreateAPIView):
-    serializer_class = FamilySerializer
-    queryset = Family.objects.all()
-
-
-class FamilyDetailView(RetrieveUpdateDestroyAPIView):
-    serializer_class = FamilySerializer
-    queryset = Family.objects.all()
 
 
 class NodeListCreateView(ListCreateAPIView):
