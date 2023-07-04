@@ -2,12 +2,11 @@ from django.db import models
 from django.dispatch import receiver
 from django.db.models.signals import post_save
 
-
-class Node(models.Model):
-    GENDER_CHOICES = [
+GENDER_CHOICES = [
         ("male", "Male"),
         ("female", "Female"),
     ]
+class Node(models.Model):
 
     name = models.CharField(max_length=100)
     gender = models.CharField(max_length=6, choices=GENDER_CHOICES)
@@ -20,7 +19,7 @@ class Node(models.Model):
         related_name="spouses",
     )
     children = models.ManyToManyField(
-        "self", blank=True, related_name="parents", symmetrical=False
+        "self", blank=True, symmetrical=False,
     )
     occupation = models.CharField(max_length=100)
 
